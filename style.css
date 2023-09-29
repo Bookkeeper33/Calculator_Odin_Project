@@ -1,0 +1,120 @@
+:root {
+    --calc-bg: #1c1c1c;
+    --utilities-color: rgb(186, 186, 180);
+    --digits-color: #505050;
+    --operations-color: #ff9500;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: "Black Ops One", cursive;
+    /* font-family: "Josefin Sans", sans-serif; */
+    /* font-family: "Oswald", sans-serif; */
+    /* font-family: "Pixelify Sans", cursive; */
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #787171;
+}
+
+footer {
+    font-family: "Pixelify Sans", cursive;
+    font-size: 1.5rem;
+    color: var(--calc-bg);
+}
+
+a {
+    text-decoration: none;
+    color: var(--calc-bg);
+}
+
+h3 {
+    font-size: 2.5rem;
+    color: white;
+}
+
+/* buttons */
+button {
+    font-family: "Black Ops One", cursive;
+    font-weight: 500;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+        rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    font-size: 1.5rem;
+    background-color: var(--digits-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s linear;
+}
+
+button:hover {
+    filter: brightness(150%);
+    transform: scaleX(1.1) scaleY(1.1);
+}
+
+.operations:hover {
+    filter: brightness(110%);
+}
+
+.operations {
+    color: transparent;
+    text-shadow: 0 0 0 white;
+    background-color: var(--operations-color);
+}
+
+.utilities {
+    background-color: var(--utilities-color);
+    color: black;
+}
+
+.zero {
+    width: 165px;
+    height: 60px;
+    border-radius: 25px;
+    align-self: center;
+}
+
+/* calculator  */
+.container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    border: 2px solid black;
+    border-radius: 15px;
+    max-width: 450px;
+    padding: 25px;
+    background-color: var(--calc-bg);
+}
+
+.display-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 25px 10px;
+    padding: 15px;
+    background-color: var(--digits-color);
+
+    border-radius: 10px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    margin: 5px 25px;
+}
