@@ -2,11 +2,11 @@
 
 // Elements
 const digitsBtns = document.querySelectorAll(".digits");
-const operations = document.querySelectorAll(".operations");
+const operationsBtns = document.querySelectorAll(".operations");
 const clearBtn = document.getElementById("clear");
-const deleteBtn = document.getElementById("delete");
+const signBtn = document.getElementById("sign");
 const percentageBtn = document.getElementById("percentages");
-const equals = document.getElementById("equals");
+const equalsBtn = document.getElementById("equals");
 const output = document.getElementById("output");
 
 // initial values
@@ -17,6 +17,12 @@ let inputMode = "first";
 
 // Event listeners
 clearBtn.addEventListener("click", clear);
+signBtn.addEventListener("click", () => {
+    useUtility(changeSign);
+});
+percentageBtn.addEventListener("click", () => {
+    useUtility(findPercentage);
+});
 
 digitsBtns.forEach((digit) =>
     digit.addEventListener("click", () => {
@@ -25,16 +31,18 @@ digitsBtns.forEach((digit) =>
     })
 );
 
-equals.addEventListener("click", () => {
+equalsBtn.addEventListener("click", () => {
     calculate();
 });
 
-operations.forEach((operation) => {
+operationsBtns.forEach((operation) => {
     operation.addEventListener("click", () => {
         toggleActive(operation);
-        selectOperation(operation);
+        selectOperation(operation.textContent);
     });
 });
+
+window.addEventListener("keydown", handleKeyBoardInput);
 
 // Logic
 function selectOperation(operation) {
@@ -45,7 +53,7 @@ function selectOperation(operation) {
     if (firstValue && secondValue) {
         calculate();
     }
-    operator = operation.textContent;
+    operator = operation;
     inputMode = "second";
 }
 
@@ -53,10 +61,21 @@ function handleDigitClick(digit) {
     if (inputMode === "result") {
         firstValue = digit;
         inputMode = "first";
-    } else if (inputMode === "first") {
-        firstValue += digit;
-    } else if (inputMode === "second") {
-        secondValue += digit;
+    } else {
+        const currentValue = inputMode === "first" ? firstValue : secondValue;
+        if (
+            (currentValue === "0" || output.textContent === "0") &&
+            digit === "."
+        ) {
+            // Add '.' to the current value if it's '0'
+            inputMode === "first" ? (firstValue = "0.") : (secondValue = "0.");
+        } else {
+            // Append the digit to the current value
+            inputMode === "first"
+                ? (firstValue += digit)
+                : (secondValue += digit);
+        }
+        inputMode = inputMode === "first" ? "first" : "second";
     }
 
     populateDisplay(inputMode === "first" ? firstValue : secondValue);
@@ -96,6 +115,10 @@ function operate(a, b, operand) {
             break;
     }
 
+    if (!Number.isInteger(results)) {
+        return results.toFixed(3).toString();
+    }
+
     return results.toString();
 }
 
@@ -119,9 +142,64 @@ function divide(a, b) {
     return a / b;
 }
 
+function useUtility(callback) {
+    if (inputMode === "first") {
+        firstValue = callback(firstValue);
+    } else {
+        secondValue = callback(secondValue);
+    }
+    populateDisplay(inputMode === "first" ? firstValue : secondValue);
+}
+
+function findPercentage(value) {
+    return parseFloat(value / 100).toString();
+}
+
+function changeSign(value) {
+    return parseFloat(value * -1).toString();
+}
+
+function handleKeyBoardInput(event) {
+    event.preventDefault();
+
+    if ((event.key >= 0 && event.key <= 9) || event.key === ".")
+        handleDigitClick(event.key);
+    if (event.key === "Escape") clear();
+    if (event.key === "=" || event.key === "Enter") calculate();
+    if (
+        event.key === "+" ||
+        event.key === "-" ||
+        event.key === "*" ||
+        event.key === "/"
+    )
+        selectOperation(convertOperator(event.key));
+}
+
+function convertOperator(operator) {
+    switch (operator) {
+        case "/":
+            operator = "➗";
+            break;
+        case "*":
+            operator = "✖️";
+            break;
+        case "+":
+            operator = "➕";
+            break;
+        case "-":
+            operator = "➖";
+            break;
+    }
+
+    return operator;
+}
+
 // UI changes
 function populateDisplay(value) {
-    output.textContent = value || "0";
+    if (value.length > 14) {
+        return;
+    }
+    output.textContent = value;
 }
 
 function clear() {
@@ -131,7 +209,7 @@ function clear() {
     inputMode = "first";
 
     removeActive();
-    populateDisplay();
+    populateDisplay("0");
 }
 
 function removeActive() {

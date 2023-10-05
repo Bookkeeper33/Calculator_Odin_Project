@@ -40,7 +40,7 @@ a {
 }
 
 h3 {
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 /* buttons */
@@ -108,6 +108,7 @@ button:hover {
     margin: 25px 10px;
     padding: 15px;
     gap: 10px;
+    max-height: 100px;
     background-color: var(--digits-color);
     border-radius: 10px;
     color: white;
