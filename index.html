@@ -15,39 +15,45 @@
     <body>
         <div class="container">
             <div class="display-container">
-                <h3>1+1=2</h3>
+                <h3 id="output">0</h3>
             </div>
             <div class="row">
-                <button class="utilities">C</button>
-                <button class="utilities">DEL</button>
-                <button class="utilities">%</button>
+                <button class="utilities" id="clear">C</button>
+                <button class="utilities" id="delete">DEL</button>
+                <button class="utilities" id="percentages">%</button>
                 <button class="operations">➗</button>
             </div>
             <div class="row">
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
+                <button class="digits">7</button>
+                <button class="digits">8</button>
+                <button class="digits">9</button>
                 <button class="operations">✖️</button>
             </div>
             <div class="row">
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button class="operations">➕</button>
-            </div>
-            <div class="row">
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
+                <button class="digits">4</button>
+                <button class="digits">5</button>
+                <button class="digits">6</button>
                 <button class="operations">➖</button>
             </div>
             <div class="row">
-                <button class="zero">0</button>
+                <button class="digits">1</button>
+                <button class="digits">2</button>
+                <button class="digits">3</button>
+                <button class="operations">➕</button>
+            </div>
+            <div class="row">
+                <button class="digits zero">0</button>
                 <button>.</button>
-                <button class="operations">🟰</button>
+                <button id="equals">🟰</button>
             </div>
         </div>
-        <footer>Created by &copy;<a href="">Yaroslav Melynk</a></footer>
+        <footer>
+            Created by &copy;<a
+                href="https://github.com/Bookkeeper33/Calculator_Odin_Project"
+                target="_blank"
+                >Yaroslav Melynk</a
+            >
+        </footer>
         <script defer src="script.js"></script>
     </body>
 </html>
