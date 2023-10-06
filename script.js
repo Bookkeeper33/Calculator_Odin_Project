@@ -143,12 +143,18 @@ function divide(a, b) {
 }
 
 function useUtility(callback) {
-    if (inputMode === "first") {
+    if (inputMode === "first" || inputMode === "result") {
         firstValue = callback(firstValue);
     } else {
         secondValue = callback(secondValue);
+        console.log(secondValue);
     }
-    populateDisplay(inputMode === "first" ? firstValue : secondValue);
+
+    populateDisplay(
+        inputMode === "first" || inputMode === "result"
+            ? firstValue
+            : secondValue
+    );
 }
 
 function findPercentage(value) {
