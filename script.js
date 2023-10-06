@@ -16,10 +16,12 @@ let operator = null;
 let inputMode = "first";
 
 // Event listeners
+window.addEventListener("keydown", handleKeyBoardInput);
 clearBtn.addEventListener("click", clear);
 signBtn.addEventListener("click", () => {
     useUtility(changeSign);
 });
+
 percentageBtn.addEventListener("click", () => {
     useUtility(findPercentage);
 });
@@ -42,21 +44,7 @@ operationsBtns.forEach((operation) => {
     });
 });
 
-window.addEventListener("keydown", handleKeyBoardInput);
-
 // Logic
-function selectOperation(operation) {
-    if (!firstValue) {
-        firstValue = "0";
-    }
-
-    if (firstValue && secondValue) {
-        calculate();
-    }
-    operator = operation;
-    inputMode = "second";
-}
-
 function handleDigitClick(digit) {
     if (inputMode === "result") {
         firstValue = digit;
@@ -79,7 +67,18 @@ function handleDigitClick(digit) {
     }
 
     populateDisplay(inputMode === "first" ? firstValue : secondValue);
-    console.log("First:", firstValue, "\nSecond: ", secondValue);
+}
+
+function selectOperation(operation) {
+    if (!firstValue) {
+        firstValue = "0";
+    }
+
+    if (firstValue && secondValue) {
+        calculate();
+    }
+    operator = operation;
+    inputMode = "second";
 }
 
 function calculate() {
@@ -113,6 +112,10 @@ function operate(a, b, operand) {
         case "➖":
             results = subtract(a, b);
             break;
+    }
+
+    if (results instanceof Object) {
+        return results;
     }
 
     if (!Number.isInteger(results)) {
