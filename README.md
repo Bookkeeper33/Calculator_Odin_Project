@@ -2,4 +2,6 @@
 
 ## Description
 
-Calculator is going to contain functions for all of the basic math operators you typically find on simple calculators.
+iOS like  Calculator contains functions for all of the basic math operators you typically find on simple calculators.
+Feel free to clone and test the app
+
